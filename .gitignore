@@ -1,0 +1,10 @@
+# ce fichier indique à git les fichiers à ignorer
+
+# ignorer l'environnement virtuel :
+env/
+
+# ignorer tous les fichiers .csv :
+*.csv
+
+# ignorer tous les fichiers .jpg :
+*.jpg
