@@ -64,12 +64,13 @@ def toutes_les_pages(url):                      #ok, 04/10/2023
 def liste_livres_1page(url): #ok 12/10/23
     page = requests.get(url)
     soup = BeautifulSoup(page.content, 'html.parser')
+
     # Récupération de tous les liens (ok)
     liste_lien=[]
     for link in soup.findAll('a'):
         liste_lien.append(link.get('href'))
     #print("1.",liste_lien)
-    #return(liste_lien)
+    
     # Suppression des doublons (ok)
         liens_uniques = []
         for lien in liste_lien :
@@ -77,7 +78,7 @@ def liste_livres_1page(url): #ok 12/10/23
                 liens_uniques.append(lien)
     #print("2.",len(liens_uniques), liens_uniques)
     #print("3.",liens_uniques[-1])
-    #return(liens_uniques)
+    
     #   liste des catégories pour les soustraire de la liste des liens
     recherche_col=soup.find("ul",class_="nav nav-list")
     #print(recherche_col)
@@ -86,7 +87,7 @@ def liste_livres_1page(url): #ok 12/10/23
         liste_categories.append(link.get('href'))
     liste_categories.remove("index.html")
     #print("liste des catégories",liste_categories)
-    #return(liste_categories)
+    
     # Liste des liens des pages de livres (ok)
     liens_sans_liens_categories=[]
     for lien1 in liens_uniques :
@@ -105,6 +106,7 @@ def liste_livres_1page(url): #ok 12/10/23
                 chaine_texte1.append(lien3)
         chaine_texte1 = list(filter(None, chaine_texte1)) #pour supprimer les chaines vides
         #print("5.",chaine_texte1)
+
         chaine_texte1.pop(-1)
         lien_sans_index='/'.join(chaine_texte1)
         liens_livres_imcomplets.append(lien_sans_index)
@@ -116,45 +118,40 @@ def liste_livres_1page(url): #ok 12/10/23
         lien_livre="http://books.toscrape.com/catalogue/"+lien4+"/index.html"
         liens_livres.append(lien_livre)
     #print("7.",len(liens_livres))
-    #résultat : liste des livres de la première page.
+    #résultat : liste des livres d'une page.
     return(liens_livres)
 
 
 def ts_livres(url): #ok 12/10/23
     liste_ts_livres=[]
     for adresse in toutes_les_pages(url):
-        print("ph2 adresse validée :",adresse,len(liste_livres_1page(adresse)))
+        #print("ph2 adresse validée :",adresse,len(liste_livres_1page(adresse)))
         for livre in liste_livres_1page(adresse):
-            liste_ts_livres.append(liste_livres_1page(adresse)) 
-    print(len(liste_ts_livres))
+            liste_ts_livres.append(livre) #liste_livres_1page(adresse)
+    #print(liste_ts_livres,len(liste_ts_livres))
     return(liste_ts_livres)
 
 url="http://books.toscrape.com/catalogue/category/books/sequential-art_5/index.html"
-ts_livres(url)
+#ts_livres(url) # temps d'execution : 05s12
 
-    
-# Enregistrement des liens dans un fichier texte 
-# Enregistrement des données dans un fichier csv, ok, 04/10/2023
+# Enregistrement des données dans un fichier csv
 
-#url="http://books.toscrape.com/catalogue/category/books/sequential-art_5/index.html"
-#fichier1_txt='projet2_phase2_cat5.txt'
-#fichier2_csv='projet2_phase2.csv'
+
+fichier_csv='category_exemple.csv'
 #tous_les_livres_1categorie(url)
-""""
-def creation_fichiers_csv(url,fichier_csv):
-    url_livre1=liste_livres(url)[0]
-    livres.en_tete_csv(url_livre1,fichier2_csv)
-        
-    with open (fichier1_txt,'r') as cat5:
-        for ligne in cat5:
-            url=ligne.strip()
-            response=requests.get(url)
-            if response.ok:
-                valeurs_client=livres.valeurs_tableau(url)
-                with open(fichier2_csv,'a') as fich_cat5:
-                    ligne = valeurs_client
-                    writer = csv.writer(fich_cat5, delimiter=',')
-                    writer.writerow(ligne)
 
-#creation_fichiers(url,fichier1_txt,fichier2_csv)
-"""
+def creation_fichiers_csv(url,fichier_csv):
+    url_livre1=ts_livres(url)[0]
+    livres.en_tete_csv(url_livre1,fichier_csv)
+      
+    for url_livre in ts_livres(url):
+        with open(fichier_csv,'a') as c5:
+            ligne = livres.valeurs_tableau(url_livre)
+            writer = csv.writer(c5, delimiter=',')
+            writer.writerow(ligne)
+           
+    return()
+
+#creation_fichiers_csv(url,fichier_csv) # temps d'execution : 36s70
+
+
