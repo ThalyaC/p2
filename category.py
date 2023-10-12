@@ -9,7 +9,7 @@ puis extraire les données demandées pour chaque livre dans un fichier csv.
 import requests
 from bs4 import BeautifulSoup
 import csv
-import livres
+from livres import en_tete_csv, valeurs_tableau
 
 """
 Catégorie choisie : sequential-art_5
@@ -131,27 +131,27 @@ def ts_livres(url): #ok 12/10/23
     #print(liste_ts_livres,len(liste_ts_livres))
     return(liste_ts_livres)
 
-url="http://books.toscrape.com/catalogue/category/books/sequential-art_5/index.html"
+#url="http://books.toscrape.com/catalogue/category/books/sequential-art_5/index.html"
 #ts_livres(url) # temps d'execution : 05s12
 
 # Enregistrement des données dans un fichier csv
 
 
-fichier_csv='category_exemple.csv'
+#fichier_csv='category_exemple.csv'
 #tous_les_livres_1categorie(url)
 
 def creation_fichiers_csv(url,fichier_csv):
     url_livre1=ts_livres(url)[0]
-    livres.en_tete_csv(url_livre1,fichier_csv)
+    en_tete_csv(url_livre1,fichier_csv)
       
     for url_livre in ts_livres(url):
         with open(fichier_csv,'a') as c5:
-            ligne = livres.valeurs_tableau(url_livre)
+            ligne = valeurs_tableau(url_livre)
             writer = csv.writer(c5, delimiter=',')
             writer.writerow(ligne)
            
     return()
 
-#creation_fichiers_csv(url,fichier_csv) # temps d'execution : 36s70
+#creation_fichiers_csv(url,fichier_csv) # temps d'execution : 37s70
 
 
