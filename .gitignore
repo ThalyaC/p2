@@ -11,3 +11,7 @@ env/
 
 # ignorer pycache
 _pycache_/
+
+__pycache__/category.cpython-310.pyc
+__pycache__/livres.cpython-310.pyc
+__pycache__/site_books.cpython-310.pyc
