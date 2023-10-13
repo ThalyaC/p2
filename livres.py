@@ -211,11 +211,12 @@ def livre_suivant(url,fichier):
     inserer_valeurs_csv(url,fichier)
 
 
-
-fichier='projet2_phase1_1.csv'
+"""
+fichier='livre.csv'
 url = "http://books.toscrape.com/catalogue/soumission_998/index.html"
 livre1(url,fichier)
 
 url="http://books.toscrape.com/catalogue/sharp-objects_997/index.html"
 livre_suivant(url,fichier)
+"""
 
