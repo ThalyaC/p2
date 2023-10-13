@@ -8,5 +8,6 @@ env/
 
 # ignorer tous les fichiers .jpg :
 *.jpg
+
 # ignorer pycache
 _pycache_/
