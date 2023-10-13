@@ -33,15 +33,18 @@ def base_category1(url):                              #ok, 05/10/2023
     #print(liste_category0)
     return(liste_category0)
 
-def category1(url):                                  #ok, 05/10/2023, modifié le 13/10/23
+def category1(url):                                  #ok, 05/10/2023, modifié le 13/10/23 *2
     liste_category2=[]
     for lien in base_category1(url):
         lien1=lien.split('/')
         lien1.pop()
         nom_category=lien1[3]
-        liste_category2.append(nom_category)
-        #exple : nom_category='science-fiction_16'
-    #print("liste des catégories",len(liste_category2), liste_category2)
+        nom_category1=nom_category.split('_')
+        nom_category1.pop()
+        nom_category2=nom_category1[0]
+        liste_category2.append(nom_category2)
+        #exple : nom_category='science-fiction'
+    print("liste des catégories",len(liste_category2), liste_category2)
     return(liste_category2)
 
 def adresse_category(url):                              #ok, 05/10/2023
@@ -96,9 +99,10 @@ for paramet in liste_parametre:
     print(paramet,"\n", "1.",url1,"\n","2.",fichier1_csv)
     creation_fichiers_csv(url1,fichier1_csv)
 
-
+# pour placer les fichiers csv dans les dossiers
 for nom in category1(url):
     emplacement_actuel="../p2/"+nom+".csv"
     destination="../p2/"+nom+"/"+nom+".csv"
     replace(emplacement_actuel,destination)
+
 
