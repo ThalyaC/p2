@@ -225,7 +225,7 @@ def image(url): #ok 13/10/23
     lien_image0=liste[9]
     #exple : http://books.toscrape.com/../../media/cache/fe/72/fe72f0532301ec28892ae79a629a293c.jpg
     lien_image=lien_image0.replace("../../", "")
-    print("lien de l'image: ",lien_image)
+    #print("lien de l'image: ",lien_image)
 
     titre_image0=liste[2]
     titre_image1=titre_image0.replace(" ","_")
@@ -233,7 +233,7 @@ def image(url): #ok 13/10/23
     titre_image3 = list(filter(None, titre_image2))
     titre_image4='_'.join(titre_image3)
     titre_image=titre_image4
-    print("titre de l'image souhaité: ",titre_image)
+    #print("titre de l'image souhaité: ",titre_image)
 
 
     def nom_image_brut(lien_image):
@@ -242,7 +242,7 @@ def image(url): #ok 13/10/23
         return (nom_image_base)
 
     nom_image_base=nom_image_brut(lien_image)
-    print("nom de l'image sur le site: ",nom_image_base)
+    #print("nom de l'image sur le site: ",nom_image_base)
 
     dossier0=liste[7]
     dossier1=dossier0.lower()
