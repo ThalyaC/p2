@@ -10,7 +10,7 @@ Projet 2 Phase 3
 import requests
 from bs4 import BeautifulSoup
 from category import creation_fichiers_csv
-from os import mkdir
+from os import mkdir, replace
 
 #1. Interroger le site "Books to scrappe"
 
@@ -95,3 +95,10 @@ for paramet in liste_parametre:
     fichier1_csv=str(paramet[1])
     print(paramet,"\n", "1.",url1,"\n","2.",fichier1_csv)
     creation_fichiers_csv(url1,fichier1_csv)
+
+
+for nom in category1(url):
+    emplacement_actuel="../p2/"+nom+".csv"
+    destination="../p2/"+nom+"/"+nom+".csv"
+    replace(emplacement_actuel,destination)
+
