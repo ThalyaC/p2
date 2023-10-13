@@ -26,7 +26,9 @@ nom_image_base=nom_image_brut(lien_image)
 print("nom de l'image sur le site: ",nom_image_base)
 
 dossier0=liste[7]
-dossier=dossier0 + "/"
+dossier1=dossier0.lower()
+dossier2=dossier1.replace(" ","_")
+dossier=dossier2 + "/"
 
 def download_image(lien_image, dossier, titre_image):
     full_path = dossier + titre_image+".jpg"
