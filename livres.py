@@ -8,8 +8,9 @@ import csv
 from urllib.request import urlretrieve
 
 
+
 # indiquer la page internet consultée et accéder à son code html source
-url = "http://books.toscrape.com/catalogue/a-light-in-the-attic_1000/index.html"
+#url = "http://books.toscrape.com/catalogue/a-light-in-the-attic_1000/index.html"
 #url = ph0.url
 
 def analyse_page_livre(url):
@@ -212,15 +213,8 @@ def livre_suivant(url,fichier):
     inserer_valeurs_csv(url,fichier)
 
 
-"""
-fichier='livre.csv'
-url = "http://books.toscrape.com/catalogue/soumission_998/index.html"
-livre1(url,fichier)
-
-url="http://books.toscrape.com/catalogue/sharp-objects_997/index.html"
-livre_suivant(url,fichier)
-"""
 def image(url): #ok 13/10/23
+    #print("image",url)
     liste=valeurs_tableau(url)
     lien_image0=liste[9]
     #exple : http://books.toscrape.com/../../media/cache/fe/72/fe72f0532301ec28892ae79a629a293c.jpg
@@ -228,21 +222,21 @@ def image(url): #ok 13/10/23
     #print("lien de l'image: ",lien_image)
 
     titre_image0=liste[2]
-    titre_image1=titre_image0.replace(" ","_")
-    titre_image2=titre_image1.split("_")
-    titre_image3 = list(filter(None, titre_image2))
-    titre_image4='_'.join(titre_image3)
-    titre_image=titre_image4
+    
+    def supprimer_ponctuation(chaine):
+        caracteres_alphanum=""
+        for caractere in chaine:
+            if caractere.isalnum() or caractere.isspace():
+                caracteres_alphanum += caractere
+        return(caracteres_alphanum)
+
+    titre_image1=supprimer_ponctuation(titre_image0)
+    titre_image2=titre_image1.replace(" ","_")
+    titre_image3=titre_image2.split("_")
+    titre_image4 = list(filter(None, titre_image3))
+    titre_image5='_'.join(titre_image4)
+    titre_image=titre_image5
     #print("titre de l'image souhaité: ",titre_image)
-
-
-    def nom_image_brut(lien_image):
-        lien1=lien_image.split('/')
-        nom_image_base=lien1[-1]
-        return (nom_image_base)
-
-    nom_image_base=nom_image_brut(lien_image)
-    #print("nom de l'image sur le site: ",nom_image_base)
 
     dossier0=liste[7]
     dossier1=dossier0.lower()
@@ -258,7 +252,8 @@ def image(url): #ok 13/10/23
 
 
 """
-url = "http://books.toscrape.com/catalogue/soumission_998/index.html"
+url = "http://books.toscrape.com/catalogue/scott-pilgrims-precious-little-life-scott-pilgrim-1_987/index.html"
+
 fichier='livre.csv'
 
 livre1(url,fichier)
@@ -268,5 +263,7 @@ livre_suivant(url,fichier)
 
 image(url)
 """
+
+
 
 
