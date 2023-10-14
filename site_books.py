@@ -9,12 +9,12 @@ Projet 2 Phase 3
 
 import requests
 from bs4 import BeautifulSoup
-from category import creation_fichiers_csv
+from category import creation_fichiers_csv,creation_fichiers_images
 from os import mkdir, replace
 
 #1. Interroger le site "Books to scrappe"
 
-url="http://books.toscrape.com/"
+#url="http://books.toscrape.com/"
 
 #2. Récupérer toutes les catégories (nouvelle définition de "category" par rapport au fichier category puisque 
 # "infex.html" ne figure pas dans le menu "home" - 
@@ -42,9 +42,11 @@ def category1(url):                                  #ok, 05/10/2023, modifié l
         nom_category1=nom_category.split('_')
         nom_category1.pop()
         nom_category2=nom_category1[0]
-        liste_category2.append(nom_category2)
+        nom_category3=nom_category2.replace("-", "_")
+        nom_category4=nom_category3.lower()
+        liste_category2.append(nom_category4)
         #exple : nom_category='science-fiction'
-    print("liste des catégories",len(liste_category2), liste_category2)
+    #print("liste des catégories",len(liste_category2), liste_category2)
     return(liste_category2)
 
 def adresse_category(url):                              #ok, 05/10/2023
@@ -53,7 +55,7 @@ def adresse_category(url):                              #ok, 05/10/2023
         adresse_category=url+lien_partiel
         liste_adresse_category.append(adresse_category)
         # exple : adresse_category='http://books.toscrape.com/catalogue/category/books/romance_8/index.html'
-    print(liste_adresse_category)
+    #print(liste_adresse_category)
     return(liste_adresse_category)
 
 
@@ -72,7 +74,7 @@ def creation_dossiers(url): # ok, 13/10/23
     for dossier in creation_noms_dossiers(url):
         try:
             mkdir(dossier)
-        except OSError as e:
+        except OSError :
             pass
         finally :
             pass
@@ -84,25 +86,29 @@ def creation_noms_fichiers_csv(url): #ok, modifié le 13//10/2023
     for nom_category in liste_category:
         nom_category_csv=nom_category+".csv"
         liste_noms_fichiers_csv.append(nom_category_csv)
-    print(liste_noms_fichiers_csv,len(liste_noms_fichiers_csv))
+    #print(liste_noms_fichiers_csv,len(liste_noms_fichiers_csv))
     return(liste_noms_fichiers_csv) 
 
-#creation_fichiers_par_categorie(url) #modifié le 13/10/23
-liste_fichiers_csv=creation_noms_fichiers_csv(url)
-liste_categories=adresse_category(url)
-liste_parametre = list(zip(liste_categories, liste_fichiers_csv))
-#print(liste_parametre[0]) exple : ('http://books.toscrape.com/catalogue/category/books/travel_2/index.html', 'travel_2.csv')
+def lancement_scraping(url):
+    #creation_fichiers_par_categorie(url) #modifié le 13/10/23
+    liste_fichiers_csv=creation_noms_fichiers_csv(url)
+    liste_categories=adresse_category(url)
+    liste_parametre = list(zip(liste_categories, liste_fichiers_csv))
+    #print(liste_parametre[0]) exple : ('http://books.toscrape.com/catalogue/category/books/travel_2/index.html', 'travel_2.csv')
 
-for paramet in liste_parametre:
-    url1=str(paramet[0])
-    fichier1_csv=str(paramet[1])
-    print(paramet,"\n", "1.",url1,"\n","2.",fichier1_csv)
-    creation_fichiers_csv(url1,fichier1_csv)
+    creation_dossiers(url)
 
-# pour placer les fichiers csv dans les dossiers
-for nom in category1(url):
-    emplacement_actuel="../p2/"+nom+".csv"
-    destination="../p2/"+nom+"/"+nom+".csv"
-    replace(emplacement_actuel,destination)
+    for paramet in liste_parametre:
+        url1=str(paramet[0])
+        fichier1_csv=str(paramet[1])
+        #print(paramet,"\n", "1.",url1,"\n","2.",fichier1_csv)
+        creation_fichiers_csv(url1,fichier1_csv)
 
+    # pour placer les fichiers csv dans les dossiers et les remplacer si nouvel élément ajouté sur le site
+    for nom in category1(url):
+        emplacement_actuel="../p2/"+nom+".csv"
+        destination="../p2/"+nom+"/"+nom+".csv"
+        replace(emplacement_actuel,destination)
 
+    for lien in adresse_category(url):
+        creation_fichiers_images(lien)
