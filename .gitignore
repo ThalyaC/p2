@@ -9,7 +9,7 @@ env/
 # ignorer tous les fichiers .jpg :
 *.jpg
 
-# ignorer pycache
+# ignorer pycache et ses fichiers :
 _pycache_/
 
 __pycache__/category.cpython-310.pyc
