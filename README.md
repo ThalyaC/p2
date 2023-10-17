@@ -9,11 +9,11 @@ Ce programme est une version « bêta », c’est-à-dire une version prélimina
 + Pour les dépendances : consulter requirements.txt
 + Terminal
 ### INSTALLATION ÉTAPE PAR ÉTAPE
-I.	Sur GitHub :
++	Sur GitHub :
 1.	Aller sur https://github.com/ThalyaC/p2
 2.	Cliquer sur le bouton « code » puis copier l’url du dépôt.
 
-II.	Ouvrir votre terminal :
++	Ouvrir votre terminal :
 1.	Aller vers le dossier où sera stocker le projet (commande « cd ») 
 2.	Cloner le dépôt, pour cela :
 commande « git clone » + url copiée
