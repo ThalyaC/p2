@@ -34,4 +34,4 @@ Le programme créera un certain nombre de dossiers situés au même niveau de so
 Dans chaque dossier, vous trouverez :
 -	Un fichier csv contenant les livres de cette même catégorie avec les informations suivantes : « product_page_url, universal_ product_code (upc), title, price_including_tax, price_excluding_tax, number_available, product_description, category, review_rating, image_url »
 -	Les images des livres mentionnés ci-dessus.
-**L’exécution du programme dure un peu moins de 20 minutes.**
++ **L’exécution du programme dure un peu moins de 20 minutes.**
