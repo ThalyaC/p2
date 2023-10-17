@@ -27,7 +27,7 @@ Exemple : `git clone https://github.com/ThalyaC/p2.git`
     b. Pour l’activer : `source env/bin/activate`   
 (pour le désactiver à la fin du processus, taper simplement : `deactivate`)
 7.	Installer les dépendances listées dans le fichier requirements.txt  
-Exemple : `pip install requests`
+`pip install -r requirements.txt`
 ## UTILISATION 
 ### POUR EXÉCUTER LE PROGRAMME
 Taper :  `python3 lancement.py`
