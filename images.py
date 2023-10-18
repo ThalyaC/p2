@@ -7,7 +7,6 @@ liste=livres.valeurs_tableau(url)
 lien_image0=liste[9]
 
 lien_image=lien_image0.replace("../../", "")
-#print("lien de l'image: ",lien_image)
 
 titre_image0=liste[0]
 titre_image1=titre_image0.split('/')
