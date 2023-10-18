@@ -11,7 +11,7 @@ from urllib.request import urlretrieve
 
 # indiquer la page internet consultée et accéder à son code html source
 #url = "http://books.toscrape.com/catalogue/a-light-in-the-attic_1000/index.html"
-#url = ph0.url
+
 
 def analyse_page_livre(url):
     page = requests.get(url)
@@ -130,7 +130,7 @@ def analyse_page_livre(url):
     insertion(6, "product_description", product_description)
     #print(f"14. description du produit : {product_description}")
 
-#1.a.4 category
+#category
     category0=soup.find_all('a')
 
     category=[]
@@ -160,7 +160,7 @@ def analyse_page_livre(url):
     insertion(10, "image_url", image_url)
     #print("17.adresse de l'image :",image_url)
 
-# Phase C création d'un dictionnaire pour le CVS
+# Phase C création d'un dictionnaire pour le CSV, création du CSV 
     tableau= dict(zip(cle_texte, valeur_texte))
     #print("18.dictionnaire pour le CSV",tableau)
     return (tableau)
@@ -191,6 +191,8 @@ def en_tete_csv(url,fichier):
         writer.writerow(en_tete)
     return()
 
+# Créer un objet writer (écriture 'a'dditionnelle sinon "w" écrase les données précédente) avec ce fichier
+
 def inserer_valeurs_csv(url,fichier):
     valeurs_client=valeurs_tableau(url)
     with open(fichier, 'a') as fichier_csv:
@@ -199,19 +201,7 @@ def inserer_valeurs_csv(url,fichier):
         writer.writerow(ligne)
     return()
 
-# # Créer un objet writer (écriture additionnelle sinon "w" qui écrase les données précédente) avec ce fichier
-
-#Lancement de l'écriture de la phase 1 dans un fichier csv
-def livre1(url,fichier):
-    analyse_page_livre(url)
-    en_tete_csv(url,fichier)
-    inserer_valeurs_csv(url,fichier)
-#en_tete_csv() # à ne réaliser qu'une fois
-
-def livre_suivant(url,fichier):
-    analyse_page_livre(url)
-    inserer_valeurs_csv(url,fichier)
-
+# Phase D : récupération du fichier image
 
 def image(url): #ok 13/10/23
     #print("image",url)
@@ -221,22 +211,10 @@ def image(url): #ok 13/10/23
     lien_image=lien_image0.replace("../../", "")
     #print("lien de l'image: ",lien_image)
 
-    titre_image0=liste[2]
-    
-    def supprimer_ponctuation(chaine):
-        caracteres_alphanum=""
-        for caractere in chaine:
-            if caractere.isalnum() or caractere.isspace():
-                caracteres_alphanum += caractere
-        return(caracteres_alphanum)
-
-    titre_image1=supprimer_ponctuation(titre_image0)
-    titre_image2=titre_image1.replace(" ","_")
-    titre_image3=titre_image2.split("_")
-    titre_image4 = list(filter(None, titre_image3))
-    titre_image5='_'.join(titre_image4)
-    titre_image=titre_image5
-    #print("titre de l'image souhaité: ",titre_image)
+    titre_image0=liste[0]
+    titre_image1=titre_image0.split('/')
+    titre_image=titre_image1[4].replace("-","_")
+    #print("titre_essai :",titre_image)
 
     dossier0=liste[7]
     dossier1=dossier0.lower()
@@ -252,6 +230,19 @@ def image(url): #ok 13/10/23
 
 
 """
+#Lancement de l'écriture de la phase 1 dans un fichier csv : 
+# les deux définitions suivantes sont utiles pour le test de cette page uniquement.
+def livre1(url,fichier):
+    analyse_page_livre(url)
+    en_tete_csv(url,fichier)
+    inserer_valeurs_csv(url,fichier)
+#en_tete_csv() # à ne réaliser qu'une fois
+
+def livre_suivant(url,fichier):
+    analyse_page_livre(url)
+    inserer_valeurs_csv(url,fichier)
+
+# test:
 url = "http://books.toscrape.com/catalogue/scott-pilgrims-precious-little-life-scott-pilgrim-1_987/index.html"
 
 fichier='livre.csv'
