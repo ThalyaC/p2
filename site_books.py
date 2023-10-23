@@ -17,7 +17,7 @@ from os import mkdir, replace
 #url="http://books.toscrape.com/"
 
 #2. Récupérer toutes les catégories (nouvelle définition de "category" par rapport au fichier category puisque 
-# "infex.html" ne figure pas dans le menu "home" - 
+# "index.html" ne figure pas dans le menu "home" - 
 # sortir "books" qui n'est pas une catégorie, mais l'ensemble des livres du site.
 
 def base_category1(url):                              #ok, 05/10/2023
@@ -112,3 +112,4 @@ def lancement_scraping(url):
 
     for lien in adresse_category(url):
         creation_fichiers_images(lien)
+
