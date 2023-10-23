@@ -121,7 +121,6 @@ def liste_livres_1page(url): #ok 12/10/23
     #résultat : liste des livres d'une page.
     return(liens_livres)
 
-
 def ts_livres(url): #ok 12/10/23
     liste_ts_livres=[]
     for adresse in toutes_les_pages(url):
@@ -134,8 +133,7 @@ def ts_livres(url): #ok 12/10/23
 #url="http://books.toscrape.com/catalogue/category/books/sequential-art_5/index.html"
 #ts_livres(url) # temps d'execution : 05s12
 
-# Enregistrement des données dans un fichier csv
-
+#Enregistrement des données dans un fichier csv
 
 #fichier_csv='category_exemple.csv'
 #tous_les_livres_1categorie(url)
@@ -157,10 +155,8 @@ def creation_fichiers_images(url): #ok, 13/10/23
         image(url_livre)
     return()
 
-url="http://books.toscrape.com/catalogue/category/books/poetry_23/index.html"
+#url="http://books.toscrape.com/catalogue/category/books/poetry_23/index.html"
 
 #creation_fichiers_images(url) #  temps d'execution pour 19 images < 13s
 
 #creation_fichiers_csv(url,fichier_csv) # temps d'execution : 37s70
-
-
